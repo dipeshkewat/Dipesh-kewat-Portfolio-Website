@@ -16,8 +16,8 @@ export default function App() {
     const cursor = document.getElementById('cursor')
     if (!cursor) return
     const move = e => {
-      cursor.style.left = (e.clientX) + 'px'
-      cursor.style.top = (e.clientY - 16) + 'px'
+      cursor.style.left = e.clientX + 'px'
+      cursor.style.top = e.clientY + 'px'
     }
     document.addEventListener('mousemove', move)
 

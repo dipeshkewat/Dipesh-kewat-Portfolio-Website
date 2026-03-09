@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion'
 
-const socials = ['github', 'linkedin', 'twitter', 'resume.pdf']
+const socials = [
+    { label: 'github', href: 'https://github.com/dipeshkewat' },
+    { label: 'linkedin', href: 'https://www.linkedin.com/in/dipesh-kewat' },
+    { label: 'twitter', href: '#' },
+    { label: 'resume.pdf', href: '#' },
+]
 
 export default function Contact() {
     return (
@@ -35,7 +40,7 @@ export default function Contact() {
                 transition={{ delay: 0.2, duration: 0.5 }}
             >
                 <span style={{ color: '#555555' }}>$ contact → </span>
-                dipeshkewat@gmail.com
+                dipeshkewat.m@gmail.com
             </motion.p>
 
             {/* Social links */}
@@ -48,14 +53,16 @@ export default function Contact() {
             >
                 {socials.map(s => (
                     <a
-                        key={s}
-                        href="#"
+                        key={s.label}
+                        href={s.href}
+                        target={s.href !== '#' ? '_blank' : undefined}
+                        rel={s.href !== '#' ? 'noopener noreferrer' : undefined}
                         className="font-label text-[12px] font-bold border-4 px-4 py-2 transition-all duration-75 no-underline"
                         style={{ color: '#000000', background: '#FFFFFF', borderColor: '#000000', boxShadow: '3px 3px 0 #000000' }}
                         onMouseEnter={e => { e.currentTarget.style.background = '#FE90E8'; e.currentTarget.style.boxShadow = '1px 1px 0 #000000'; e.currentTarget.style.transform = 'translate(2px,2px)'; }}
                         onMouseLeave={e => { e.currentTarget.style.background = '#FFFFFF'; e.currentTarget.style.boxShadow = '3px 3px 0 #000000'; e.currentTarget.style.transform = 'none'; }}
                     >
-                        <span style={{ color: '#555555' }}>[ </span>{s}<span style={{ color: '#555555' }}> *]</span>
+                        <span style={{ color: '#555555' }}>[ </span>{s.label}<span style={{ color: '#555555' }}> *]</span>
                     </a>
                 ))}
             </motion.div>
@@ -69,7 +76,7 @@ export default function Contact() {
                 transition={{ delay: 0.4, duration: 0.5 }}
             >
                 <a
-                    href="mailto:dipeshkewat@gmail.com"
+                    href="mailto:dipeshkewat.m@gmail.com"
                     className="btn btn-yellow text-[15px] px-9 py-4"
                 >
                     → Send a Message

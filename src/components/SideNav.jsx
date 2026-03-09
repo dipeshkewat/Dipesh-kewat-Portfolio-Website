@@ -68,9 +68,13 @@ export default function SideNav({ mobileOpen, onClose }) {
             {/* Bottom */}
             <div className="border-t-4 px-5 py-4" style={{ borderColor: '#000000', background: '#FFDC8B' }}>
                 <div className="flex gap-3 mb-3">
-                    {['github', 'linkedin', 'resume'].map(s => (
-                        <a key={s} href="#" className="font-label text-[11px] underline decoration-dotted hover:decoration-solid font-bold" style={{ color: '#000000' }}>
-                            {s}
+                    {[
+                        { label: 'github', href: 'https://github.com/dipeshkewat' },
+                        { label: 'linkedin', href: 'https://www.linkedin.com/in/dipesh-kewat' },
+                        { label: 'resume', href: '#' },
+                    ].map(s => (
+                        <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="font-label text-[11px] underline decoration-dotted hover:decoration-solid font-bold" style={{ color: '#000000' }}>
+                            {s.label}
                         </a>
                     ))}
                 </div>

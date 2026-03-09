@@ -105,31 +105,49 @@
   }
 }
 
-/* ===== GLITCH CURSOR ===== */
+/* ===== TERMINAL CURSOR ===== */
 #cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 26px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   z-index: 9999;
-  clip-path: polygon(0% 20%, 55% 20%, 55% 0%, 100% 50%, 55% 100%, 55% 80%, 0% 80%);
+  border: 2.5px solid #000000;
+  border-radius: 50%;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, border-color 0.15s ease;
+  mix-blend-mode: multiply;
+}
+
+#cursor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
   background: #000000;
-  filter: drop-shadow(-4px 3px 0 #F7CB46) drop-shadow(4px -3px 0 #FE90E8);
-  transition: clip-path 0.1s;
+  border-radius: 50%;
+  transition: all 0.15s ease;
 }
 
 #cursor.hovering {
-  width: 28px;
-  height: 34px;
-  clip-path: polygon(36% 0%, 50% 0%, 50% 44%,
-      64% 44%, 64% 26%, 76% 26%, 76% 44%,
-      90% 44%, 90% 60%,
-      76% 88%, 24% 88%,
-      10% 60%, 10% 44%, 36% 44%);
+  width: 42px;
+  height: 42px;
+  background: #F7CB46;
+  border-color: #000000;
+  border-width: 2.5px;
+  mix-blend-mode: normal;
+}
+
+#cursor.hovering::after {
+  width: 5px;
+  height: 5px;
   background: #000000;
-  filter: drop-shadow(-4px 3px 0 #F7CB46) drop-shadow(4px -3px 0 #FE90E8);
 }
 
 /* Dot pattern (Neo-Brutalism uses dots instead of stripes) */
