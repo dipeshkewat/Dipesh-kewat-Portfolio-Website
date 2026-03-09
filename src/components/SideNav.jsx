@@ -15,9 +15,7 @@ export default function SideNav({ mobileOpen, onClose }) {
     useEffect(() => {
         const sections = document.querySelectorAll('section[id]')
         const obs = new IntersectionObserver(
-            entries => {
-                entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id) })
-            },
+            entries => { entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id) }) },
             { threshold: 0.4 }
         )
         sections.forEach(s => obs.observe(s))
@@ -32,23 +30,17 @@ export default function SideNav({ mobileOpen, onClose }) {
     return (
         <aside
             id="sidenav"
-            className={`
-        fixed top-0 left-0 h-screen w-[220px]
-        bg-cream border-r-4 border-black
-        flex flex-col z-[100]
-        ${mobileOpen ? 'open' : ''}
-      `}
+            className={`fixed top-0 left-0 h-screen w-[220px] flex flex-col z-[100] ${mobileOpen ? 'open' : ''}`}
+            style={{ background: '#FFFDF5', borderRight: '4px solid #000000' }}
         >
             {/* Logo */}
-            <div className="px-5 py-7 border-b-2 border-black font-mono font-bold text-sm tracking-tight">
-                <span className="text-gray-400">&lt;</span>
-                DipeshKewat
-                <span className="text-gray-400">&nbsp;/&gt;</span>
+            <div className="px-5 py-7 border-b-4 font-mono font-bold text-sm tracking-tight" style={{ borderColor: '#000000', color: '#000000', background: '#F7CB46' }}>
+                <span style={{ color: '#FE90E8' }}>&lt;</span>DipeshKewat<span style={{ color: '#FE90E8' }}>&nbsp;/&gt;</span>
             </div>
 
-            {/* Nav label */}
-            <div className="px-5 pt-3 pb-1 font-label text-[10px] uppercase tracking-widest text-gray-400">
-                <span className="text-gray-500">// </span>navigate
+            {/* Label */}
+            <div className="px-5 pt-3 pb-1 font-label text-[10px] uppercase tracking-widest" style={{ color: '#555555' }}>
+                <span style={{ color: '#99E885', fontWeight: 700 }}>{'//'} </span>navigate
             </div>
 
             {/* Links */}
@@ -57,39 +49,34 @@ export default function SideNav({ mobileOpen, onClose }) {
                     <button
                         key={link.id}
                         onClick={() => handleClick(link.id)}
-                        className={`
-              w-full text-left flex items-center px-5 py-[9px]
-              font-mono text-[13px] tracking-tight
-              border-l-4 transition-colors duration-75 cursor-none
-              ${active === link.id
-                                ? 'bg-yellow border-black'
-                                : 'border-transparent hover:bg-yellow hover:border-black'}
-            `}
+                        className="w-full text-left flex items-center px-5 py-[9px] font-mono text-[13px] tracking-tight border-l-4 transition-colors duration-75 cursor-none"
+                        style={{
+                            color: '#000000',
+                            borderLeftColor: active === link.id ? '#FE90E8' : 'transparent',
+                            background: active === link.id ? '#FFDC8B' : 'transparent',
+                            fontWeight: active === link.id ? 700 : 400,
+                        }}
+                        onMouseEnter={e => { if (active !== link.id) { e.currentTarget.style.background = '#C0F7FE'; e.currentTarget.style.borderLeftColor = '#000000'; } }}
+                        onMouseLeave={e => { if (active !== link.id) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderLeftColor = 'transparent'; } }}
                     >
-                        <span className={`mr-1.5 ${active === link.id ? 'text-black' : 'text-gray-400'}`}>
-                            {link.num}
-                        </span>
+                        <span className="mr-1.5" style={{ color: active === link.id ? '#FE90E8' : '#555555' }}>{link.num}</span>
                         {link.label}
                     </button>
                 ))}
             </nav>
 
-            {/* Bottom: socials + status */}
-            <div className="border-t-2 border-black px-5 py-4">
+            {/* Bottom */}
+            <div className="border-t-4 px-5 py-4" style={{ borderColor: '#000000', background: '#FFDC8B' }}>
                 <div className="flex gap-3 mb-3">
                     {['github', 'linkedin', 'resume'].map(s => (
-                        <a
-                            key={s}
-                            href="#"
-                            className="font-label text-[11px] text-black underline decoration-dotted hover:decoration-solid"
-                        >
+                        <a key={s} href="#" className="font-label text-[11px] underline decoration-dotted hover:decoration-solid font-bold" style={{ color: '#000000' }}>
                             {s}
                         </a>
                     ))}
                 </div>
                 <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-neon border-2 border-black animate-pulse-dot inline-block" />
-                    <span className="font-label text-[11px]">available</span>
+                    <span className="w-2 h-2 rounded-full border-2 animate-pulse-dot inline-block" style={{ background: '#99E885', borderColor: '#000000' }} />
+                    <span className="font-label text-[11px] font-bold" style={{ color: '#000000' }}>available</span>
                 </div>
             </div>
         </aside>

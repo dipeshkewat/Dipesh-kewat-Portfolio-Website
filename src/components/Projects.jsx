@@ -2,44 +2,51 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projects } from '../data/projects'
 
-function ProjectCard({ project }) {
+const cardAccents = ['#FE90E8', '#C0F7FE', '#99E885', '#F7CB46']
+
+function ProjectCard({ project, idx }) {
     const [open, setOpen] = useState(false)
+    const accent = cardAccents[idx % cardAccents.length]
 
     return (
         <div
-            className={`project-card relative overflow-hidden border-4 border-black cursor-none ${open ? 'open' : ''}`}
+            className="project-card relative overflow-hidden cursor-none"
+            style={{ border: '4px solid #000000' }}
             onClick={() => setOpen(o => !o)}
         >
-            {/* Image area */}
-            <div className="relative border-b-4 border-black aspect-video overflow-hidden">
-                <motion.div
-                    className="w-full h-full flex items-center justify-center font-mono text-[13px] text-gray-500"
-                    animate={{ background: open ? '#FFE500' : 'linear-gradient(135deg,#e0ddd6,#cac7c0)' }}
-                    whileHover={{ background: '#FFE500', color: '#0D0D0D' }}
-                    transition={{ duration: 0.1 }}
-                >
-                    {project.placeholder}
-                </motion.div>
-            </div>
-
-            {/* Card body */}
+            {/* Image / placeholder */}
             <motion.div
-                className="p-5 transition-colors"
-                animate={{ backgroundColor: open ? '#FFE500' : '#F5F0E8' }}
-                whileHover={{ backgroundColor: '#FFE500' }}
+                className="w-full aspect-video flex items-center justify-center font-mono text-[13px] border-b-4 font-bold"
+                style={{ borderColor: '#000000' }}
+                animate={{ background: open ? accent : '#FFDC8B', color: '#000000' }}
+                whileHover={{ background: accent, color: '#000000' }}
                 transition={{ duration: 0.1 }}
             >
-                <h3 className="font-mono font-bold text-lg tracking-tight mb-1">{project.name}</h3>
-                <p className="font-body text-[13px] text-gray-600 mb-3">{project.subtitle}</p>
+                {project.placeholder}
+            </motion.div>
+
+            {/* Body */}
+            <motion.div
+                className="p-5 transition-colors"
+                animate={{ backgroundColor: open ? accent : '#FFFFFF' }}
+                whileHover={{ backgroundColor: accent + '55' }}
+                transition={{ duration: 0.1 }}
+            >
+                <h3 className="font-mono font-bold text-lg tracking-tight mb-1" style={{ color: '#000000' }}>
+                    {project.name}
+                </h3>
+                <p className="font-body text-[13px] mb-3" style={{ color: '#555555' }}>
+                    {project.subtitle}
+                </p>
                 <div className="flex flex-wrap gap-1.5">
                     {project.tags.map(t => (
-                        <span
-                            key={t}
-                            className="tag-pill transition-colors"
-                            style={{ background: open ? '#0D0D0D' : 'transparent', color: open ? '#FFE500' : 'inherit' }}
-                        >
-                            {t}
-                        </span>
+                        <span key={t} className="font-label text-[10px] uppercase tracking-wider px-2 py-0.5 border-2 font-bold"
+                            style={{
+                                borderColor: '#000000',
+                                color: '#000000',
+                                background: '#C0F7FE',
+                            }}
+                        >{t}</span>
                     ))}
                 </div>
             </motion.div>
@@ -48,22 +55,25 @@ function ProjectCard({ project }) {
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        className="absolute inset-0 bg-black text-cream p-6 flex flex-col justify-center z-10"
+                        className="absolute inset-0 p-6 flex flex-col justify-center z-10"
+                        style={{ background: '#000000' }}
                         initial={{ y: '100%' }}
                         animate={{ y: 0 }}
                         exit={{ y: '100%' }}
                         transition={{ duration: 0.22, ease: [0.5, 0, 0, 1] }}
                         onClick={e => e.stopPropagation()}
                     >
-                        <h3 className="font-mono font-bold text-lg text-yellow mb-3">{project.name}</h3>
-                        <p className="font-body text-[13px] text-gray-300 leading-relaxed mb-4">{project.desc}</p>
+                        <h3 className="font-mono font-bold text-lg mb-3" style={{ color: accent }}>{project.name}</h3>
+                        <p className="font-body text-[13px] leading-relaxed mb-4" style={{ color: '#CCCCCC' }}>{project.desc}</p>
                         <div className="flex gap-4 mb-4">
-                            <a href={project.live} className="font-label text-[11px] text-yellow underline hover:no-underline">→ Live Demo</a>
-                            <a href={project.github} className="font-label text-[11px] text-yellow underline hover:no-underline">→ GitHub</a>
+                            <a href={project.github} className="font-label text-[11px] font-bold border-2 px-3 py-1 hover:no-underline transition-colors" style={{ color: '#000000', background: accent, borderColor: accent }}>
+                                {project.linkLabel}
+                            </a>
                         </div>
                         <button
                             onClick={() => setOpen(false)}
-                            className="font-mono text-[12px] text-neon tracking-widest uppercase text-left cursor-none"
+                            className="font-mono text-[12px] tracking-widest uppercase text-left cursor-none font-bold"
+                            style={{ color: '#FFFFFF' }}
                         >
                             [click to close ×]
                         </button>
@@ -76,22 +86,23 @@ function ProjectCard({ project }) {
 
 export default function Projects() {
     return (
-        <section id="work" className="px-14 md:px-16 py-20 border-b-4 border-black">
+        <section id="work" className="px-14 md:px-16 py-20 border-b-4" style={{ borderColor: '#000000', background: '#FFFDF5' }}>
             <div className="section-label">work</div>
             <h2 className="section-title">
-                Selected<br />Projects<span className="text-yellow">_</span>
+                Selected<br />Projects<span style={{ color: '#99E885' }}>_</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 border-4 border-black">
+            <div className="grid grid-cols-1 md:grid-cols-2 border-4" style={{ borderColor: '#000000' }}>
                 {projects.map((p, i) => (
                     <div
                         key={p.id}
-                        className={`
-              ${i % 2 === 0 ? 'md:border-r-4 md:border-black' : ''}
-              ${i < projects.length - 2 ? 'border-b-4 border-black' : ''}
-            `}
+                        className={[
+                            i % 2 === 0 ? 'md:border-r-4' : '',
+                            i < projects.length - 2 ? 'border-b-4' : '',
+                        ].join(' ')}
+                        style={{ borderColor: '#000000' }}
                     >
-                        <ProjectCard project={p} />
+                        <ProjectCard project={p} idx={i} />
                     </div>
                 ))}
             </div>
