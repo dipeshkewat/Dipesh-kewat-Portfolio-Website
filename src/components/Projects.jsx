@@ -2,108 +2,122 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projects } from '../data/projects'
 
-const cardAccents = ['#FE90E8', '#C0F7FE', '#99E885', '#F7CB46']
+const cardAccents = ['#C9A84C', '#6366F1', '#4ADE80', '#F472B6']
 
 function ProjectCard({ project, idx }) {
     const [open, setOpen] = useState(false)
     const accent = cardAccents[idx % cardAccents.length]
 
     return (
-        <div
-            className="project-card relative overflow-hidden cursor-none"
-            style={{ border: '4px solid #000000' }}
+        <motion.div
+            className="glass-card relative overflow-hidden cursor-none group"
+            style={{ borderRadius: 12 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1, duration: 0.5 }}
             onClick={() => setOpen(o => !o)}
+            whileHover={{ y: -4 }}
         >
-            {/* Image / placeholder */}
-            <motion.div
-                className="w-full aspect-video flex items-center justify-center font-mono text-[13px] border-b-4 font-bold"
-                style={{ borderColor: '#000000' }}
-                animate={{ background: open ? accent : '#FFDC8B', color: '#000000' }}
-                whileHover={{ background: accent, color: '#000000' }}
-                transition={{ duration: 0.1 }}
+            {/* Top accent line */}
+            <div className="h-[2px] w-full" style={{ background: `linear-gradient(90deg, ${accent}, transparent)` }} />
+
+            {/* Placeholder */}
+            <div
+                className="w-full aspect-[16/10] sm:aspect-video flex items-center justify-center font-mono text-[12px] sm:text-[13px] font-medium relative overflow-hidden"
+                style={{
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    borderBottom: '1px solid rgba(255,255,255,0.04)',
+                    color: '#7A7A92',
+                }}
             >
-                {project.placeholder}
-            </motion.div>
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `radial-gradient(circle at center, ${accent}08 0%, transparent 70%)` }} />
+                <span className="relative z-10 group-hover:text-[var(--accent)] transition-colors duration-300"
+                    style={{ '--accent': accent }}
+                >
+                    {project.placeholder}
+                </span>
+            </div>
 
             {/* Body */}
-            <motion.div
-                className="p-5 transition-colors"
-                animate={{ backgroundColor: open ? accent : '#FFFFFF' }}
-                whileHover={{ backgroundColor: accent + '55' }}
-                transition={{ duration: 0.1 }}
-            >
-                <h3 className="font-mono font-bold text-lg tracking-tight mb-1" style={{ color: '#000000' }}>
-                    {project.name}
-                </h3>
-                <p className="font-body text-[13px] mb-3" style={{ color: '#555555' }}>
+            <div className="p-4 sm:p-6">
+                <div className="flex items-start justify-between mb-1.5 sm:mb-2">
+                    <h3 className="font-serif font-bold text-base sm:text-lg" style={{ color: '#F5ECD7' }}>
+                        {project.name}
+                    </h3>
+                    <span className="text-xs opacity-40 ml-2 flex-shrink-0" style={{ color: accent }}>0{idx + 1}</span>
+                </div>
+                <p className="font-sans text-[12px] sm:text-[13px] mb-3 sm:mb-4" style={{ color: '#7A7A92' }}>
                     {project.subtitle}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                     {project.tags.map(t => (
-                        <span key={t} className="font-label text-[10px] uppercase tracking-wider px-2 py-0.5 border-2 font-bold"
-                            style={{
-                                borderColor: '#000000',
-                                color: '#000000',
-                                background: '#C0F7FE',
-                            }}
-                        >{t}</span>
+                        <span key={t} className="tag-pill">{t}</span>
                     ))}
                 </div>
-            </motion.div>
+            </div>
 
             {/* Overlay */}
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        className="absolute inset-0 p-6 flex flex-col justify-center z-10"
-                        style={{ background: '#000000' }}
-                        initial={{ y: '100%' }}
-                        animate={{ y: 0 }}
-                        exit={{ y: '100%' }}
-                        transition={{ duration: 0.22, ease: [0.5, 0, 0, 1] }}
+                        className="absolute inset-0 p-5 sm:p-7 flex flex-col justify-center z-10"
+                        style={{
+                            background: 'rgba(10, 10, 15, 0.96)',
+                            backdropFilter: 'blur(12px)',
+                            WebkitBackdropFilter: 'blur(12px)',
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
                         onClick={e => e.stopPropagation()}
                     >
-                        <h3 className="font-mono font-bold text-lg mb-3" style={{ color: accent }}>{project.name}</h3>
-                        <p className="font-body text-[13px] leading-relaxed mb-4" style={{ color: '#CCCCCC' }}>{project.desc}</p>
-                        <div className="flex gap-4 mb-4">
-                            <a href={project.github} className="font-label text-[11px] font-bold border-2 px-3 py-1 hover:no-underline transition-colors" style={{ color: '#000000', background: accent, borderColor: accent }}>
+                        <div className="h-[2px] w-10 sm:w-12 mb-4 sm:mb-5" style={{ background: accent }} />
+                        <h3 className="font-serif font-bold text-base sm:text-lg mb-2 sm:mb-3" style={{ color: accent }}>{project.name}</h3>
+                        <p className="font-sans text-[12px] sm:text-[13px] leading-relaxed mb-4 sm:mb-5" style={{ color: '#B8B8CC' }}>{project.desc}</p>
+                        <div className="flex gap-3 mb-4 sm:mb-5">
+                            <a href={project.github}
+                                className="font-sans text-[11px] sm:text-[12px] font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-md transition-all duration-300"
+                                style={{
+                                    color: '#0A0A0F',
+                                    background: accent,
+                                }}
+                            >
                                 {project.linkLabel}
                             </a>
                         </div>
                         <button
                             onClick={() => setOpen(false)}
-                            className="font-mono text-[12px] tracking-widest uppercase text-left cursor-none font-bold"
-                            style={{ color: '#FFFFFF' }}
+                            className="font-mono text-[10px] sm:text-[11px] tracking-widest uppercase text-left cursor-none font-medium transition-colors duration-300"
+                            style={{ color: '#7A7A92' }}
+                            onMouseEnter={e => e.currentTarget.style.color = accent}
+                            onMouseLeave={e => e.currentTarget.style.color = '#7A7A92'}
                         >
-                            [click to close ×]
+                            ← Close
                         </button>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </motion.div>
     )
 }
 
 export default function Projects() {
     return (
-        <section id="work" className="px-14 md:px-16 py-20 border-b-4" style={{ borderColor: '#000000', background: '#FFFDF5' }}>
-            <div className="section-label">work</div>
-            <h2 className="section-title">
-                Selected<br />Projects<span style={{ color: '#99E885' }}>_</span>
+        <section id="work" className="px-5 sm:px-8 md:px-14 lg:px-16 py-16 sm:py-20 md:py-24"
+            style={{ background: '#0A0A0F', borderBottom: '1px solid rgba(201, 168, 76, 0.06)' }}>
+            <div className="section-label">Work</div>
+            <h2 className="section-title text-4xl sm:text-5xl md:text-7xl mb-8 sm:mb-12">
+                Selected
+                <br />Projects<span style={{ color: '#C9A84C' }}>.</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 border-4" style={{ borderColor: '#000000' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {projects.map((p, i) => (
-                    <div
-                        key={p.id}
-                        className={[
-                            i % 2 === 0 ? 'md:border-r-4' : '',
-                            i < projects.length - 2 ? 'border-b-4' : '',
-                        ].join(' ')}
-                        style={{ borderColor: '#000000' }}
-                    >
-                        <ProjectCard project={p} idx={i} />
-                    </div>
+                    <ProjectCard key={p.id} project={p} idx={i} />
                 ))}
             </div>
         </section>

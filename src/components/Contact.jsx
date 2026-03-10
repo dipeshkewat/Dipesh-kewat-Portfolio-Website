@@ -1,55 +1,86 @@
 import { motion } from 'framer-motion'
 
 const socials = [
-    { label: 'github', href: 'https://github.com/dipeshkewat' },
-    { label: 'linkedin', href: 'https://www.linkedin.com/in/dipesh-kewat' },
-    { label: 'twitter', href: '#' },
-    { label: 'resume.pdf', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/dipeshkewat' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/dipesh-kewat' },
+    { label: 'LeetCode', href: 'https://leetcode.com/u/dipeshkewat' },
+    { label: 'Resume', href: '#' },
 ]
 
 export default function Contact() {
     return (
-        <section id="contact" className="px-14 md:px-16 py-24 border-b-4 text-center" style={{ background: '#C0F7FE', borderColor: '#000000' }}>
-            {/* label */}
-            <div className="flex justify-center mb-6">
-                <span className="font-label text-[10px] uppercase tracking-widest flex items-center gap-2 font-bold" style={{ color: '#000000' }}>
-                    <span style={{ color: '#99E885', fontWeight: 900 }}>//</span> contact
+        <section id="contact" className="px-5 sm:px-8 md:px-14 lg:px-16 py-16 sm:py-20 md:py-28 text-center relative overflow-hidden max-[900px]:pb-24"
+            style={{ background: '#0A0A0F', borderBottom: '1px solid rgba(201, 168, 76, 0.06)' }}>
+
+            {/* Ambient glows */}
+            <div className="absolute top-[20%] left-[20%] w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] rounded-full opacity-[0.05] pointer-events-none"
+                style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }} />
+            <div className="absolute bottom-[10%] right-[15%] w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] rounded-full opacity-[0.04] pointer-events-none"
+                style={{ background: 'radial-gradient(circle, #6366F1 0%, transparent 70%)' }} />
+
+            {/* Label */}
+            <div className="flex justify-center mb-6 sm:mb-8">
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] flex items-center gap-2 sm:gap-3" style={{ color: '#C9A84C' }}>
+                    <span className="hidden sm:inline-block" style={{ width: 24, height: 1, background: '#C9A84C' }} />
+                    Contact
+                    <span className="hidden sm:inline-block" style={{ width: 24, height: 1, background: '#C9A84C' }} />
                 </span>
             </div>
 
             {/* Headline */}
             <motion.h2
-                className="font-mono font-extrabold text-[clamp(2rem,7vw,5.5rem)] leading-[1.02] uppercase tracking-tight mb-10"
-                style={{ color: '#000000' }}
+                className="font-serif font-bold leading-[1.05] uppercase tracking-tight mb-5 sm:mb-8"
+                style={{ fontSize: 'clamp(1.8rem, 8vw, 5.5rem)', color: '#F5ECD7' }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
             >
-                LET'S BUILD<br />
-                <span style={{ color: '#FE90E8', WebkitTextStroke: '2px #000000' }}>SOMETHING.</span>
+                Let's Build
+                <br />
+                <span style={{
+                    background: 'linear-gradient(135deg, #C9A84C, #E8C96A)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                }}>
+                    Something.
+                </span>
             </motion.h2>
 
-            {/* Terminal email */}
+            {/* Subtitle */}
             <motion.p
-                className="font-mono text-[clamp(13px,2vw,18px)] mb-10 border-4 inline-block px-6 py-3"
-                style={{ color: '#000000', background: '#F7CB46', borderColor: '#000000', boxShadow: '4px 4px 0 #000000' }}
+                className="font-sans text-[13px] sm:text-[15px] max-w-md mx-auto mb-7 sm:mb-10 px-2"
+                style={{ color: '#7A7A92' }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.5 }}
             >
-                <span style={{ color: '#555555' }}>$ contact → </span>
-                dipeshkewat.m@gmail.com
+                Have an idea? Let's turn it into reality. I'm always open to discussing new projects and creative ideas.
             </motion.p>
 
-            {/* Social links */}
+            {/* Email card */}
             <motion.div
-                className="flex flex-wrap justify-center gap-4 mb-12"
+                className="glass-card inline-block px-5 sm:px-8 py-3 sm:py-4 mb-7 sm:mb-10"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.5 }}
+            >
+                <span className="font-mono text-[12px] sm:text-[14px]" style={{ color: '#7A7A92' }}>→ </span>
+                <span className="font-mono text-[12px] sm:text-[14px] font-medium" style={{ color: '#E8C96A' }}>
+                    dipeshkewat.m@gmail.com
+                </span>
+            </motion.div>
+
+            {/* Social links */}
+            <motion.div
+                className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
             >
                 {socials.map(s => (
                     <a
@@ -57,29 +88,40 @@ export default function Contact() {
                         href={s.href}
                         target={s.href !== '#' ? '_blank' : undefined}
                         rel={s.href !== '#' ? 'noopener noreferrer' : undefined}
-                        className="font-label text-[12px] font-bold border-4 px-4 py-2 transition-all duration-75 no-underline"
-                        style={{ color: '#000000', background: '#FFFFFF', borderColor: '#000000', boxShadow: '3px 3px 0 #000000' }}
-                        onMouseEnter={e => { e.currentTarget.style.background = '#FE90E8'; e.currentTarget.style.boxShadow = '1px 1px 0 #000000'; e.currentTarget.style.transform = 'translate(2px,2px)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = '#FFFFFF'; e.currentTarget.style.boxShadow = '3px 3px 0 #000000'; e.currentTarget.style.transform = 'none'; }}
+                        className="font-sans text-[11px] sm:text-[12px] font-medium px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all duration-300 no-underline"
+                        style={{
+                            color: '#B8B8CC',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = 'rgba(201,168,76,0.08)'
+                            e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)'
+                            e.currentTarget.style.color = '#E8C96A'
+                            e.currentTarget.style.transform = 'translateY(-2px)'
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'
+                            e.currentTarget.style.color = '#B8B8CC'
+                            e.currentTarget.style.transform = 'none'
+                        }}
                     >
-                        <span style={{ color: '#555555' }}>[ </span>{s.label}<span style={{ color: '#555555' }}> *]</span>
+                        {s.label}
                     </a>
                 ))}
             </motion.div>
 
-            {/* CTA button */}
+            {/* CTA */}
             <motion.div
                 className="flex flex-wrap justify-center gap-4"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.5 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
             >
-                <a
-                    href="mailto:dipeshkewat.m@gmail.com"
-                    className="btn btn-yellow text-[15px] px-9 py-4"
-                >
-                    → Send a Message
+                <a href="mailto:dipeshkewat.m@gmail.com" className="btn btn-primary text-[13px] sm:text-[14px] px-7 sm:px-10 py-3 sm:py-4">
+                    Send a Message →
                 </a>
             </motion.div>
         </section>

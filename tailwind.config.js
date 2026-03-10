@@ -4,48 +4,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Neo-Brutalism Color Palette
-        cream: '#FFFDF5',    // main bg (warm off-white)
-        yellow: '#F7CB46',   // primary CTA / accent (yellow)
-        black: '#000000',    // dark base / text
-        lit: '#000000',      // primary text (black for Neo-Brutalism)
-        soft: '#555555',     // muted text
-        edge: '#000000',     // borders (hard black)
-        neon: '#99E885',     // green highlight
-        blood: '#FE90E8',    // pink accent
-        white: '#FFFFFF',    // card surface
-        surface: '#FFFFFF',
-        pink: '#FE90E8',     // neo pink
-        cyan: '#C0F7FE',     // neo cyan/light blue
-        green: '#99E885',    // neo green
-        peach: '#FFDC8B',    // soft yellow/peach
-        orange: '#F7CB46',   // yellow (same as yellow)
+        // Dark Luxe Palette
+        void: '#0A0A0F',       // deepest bg
+        abyss: '#111118',      // section bg
+        surface: '#18181F',    // card bg
+        elevated: '#1F1F2A',   // raised surface
+        border: '#2A2A3A',     // subtle borders
+        'border-light': '#3A3A4E', // hover borders
+        gold: '#C9A84C',       // primary accent (classic gold)
+        'gold-light': '#E8C96A', // lighter gold
+        'gold-muted': '#8B7730',  // muted gold
+        amber: '#D4A843',      // warm amber
+        cream: '#F5ECD7',      // warm light text
+        silver: '#B8B8CC',     // secondary text
+        mist: '#7A7A92',       // muted text
+        pearl: '#E8E4DD',      // headings
+        emerald: '#4ADE80',    // success/green accent
+        sapphire: '#6366F1',   // blue accent
+        rose: '#F472B6',       // pink/rose accent
+        'glass-white': 'rgba(255,255,255,0.04)',
+        'glass-border': 'rgba(255,255,255,0.08)',
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', '"Space Mono"', 'monospace'],
-        header: ['"Courier Prime"', 'monospace'],
-        body: ['"IBM Plex Mono"', 'monospace'],
-        label: ['"Source Code Pro"', 'monospace'],
+        serif: ['"Playfair Display"', '"Georgia"', 'serif'],
+        sans: ['"Inter"', '"Helvetica Neue"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
       boxShadow: {
-        brutal: '4px 4px 0px #000000',
-        'brutal-hover': '2px 2px 0px #000000',
-        'brutal-lg': '6px 6px 0px #000000',
-        'brutal-pink': '4px 4px 0px #FE90E8',
-        'brutal-yellow': '4px 4px 0px #F7CB46',
-        'brutal-cyan': '4px 4px 0px #C0F7FE',
+        glow: '0 0 20px rgba(201,168,76,0.15)',
+        'glow-lg': '0 0 40px rgba(201,168,76,0.2)',
+        'glass': '0 8px 32px rgba(0,0,0,0.3)',
+        'card': '0 4px 24px rgba(0,0,0,0.4)',
+        'card-hover': '0 8px 40px rgba(0,0,0,0.5)',
       },
-      borderWidth: { 3: '3px', 4: '4px' },
+      borderWidth: { 1: '1px' },
       animation: {
-        ticker: 'ticker 22s linear infinite',
+        ticker: 'ticker 25s linear infinite',
         blink: 'blink 1s step-end infinite',
-        'spin-slow': 'spin 8s linear infinite',
-        'pulse-dot': 'pulseDot 2s ease-in-out infinite',
+        'spin-slow': 'spin 12s linear infinite',
+        'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'shimmer': 'shimmer 2.5s ease-in-out infinite',
+        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
       },
       keyframes: {
         ticker: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
         blink: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0' } },
-        pulseDot: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0.2' } },
+        pulseSoft: { '0%, 100%': { opacity: '0.6' }, '50%': { opacity: '1' } },
+        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } },
+        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+        glowPulse: { '0%, 100%': { boxShadow: '0 0 20px rgba(201,168,76,0.1)' }, '50%': { boxShadow: '0 0 30px rgba(201,168,76,0.25)' } },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gold-gradient': 'linear-gradient(135deg, #C9A84C, #E8C96A, #C9A84C)',
+        'dark-gradient': 'linear-gradient(180deg, #0A0A0F 0%, #111118 100%)',
       },
     },
   },
